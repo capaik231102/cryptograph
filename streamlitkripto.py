@@ -63,38 +63,38 @@ def aes_decrypt(key, data, mode):
 
 # Streamlit UI
 st.set_page_config(page_title="Aplikasi Enkripsi & Dekripsi", page_icon="🔒", layout="wide")
-st.markdown("""
+st.markdown(
+    """
     <style>
-    .stButton>button {
-        background-color: #008CBA;
-        color: white;
-        font-size: 18px;
-        border-radius: 10px;
-        padding: 10px;
+    /* Background dengan resolusi tinggi */
+    html, body, [class*="stApp"] {
+        background-image: url('https://plus.unsplash.com/premium_photo-1661964184053-91aa3dc5f508?q=100&w=3840&auto=format&fit=crop');
+        background-size: cover;  /* Bisa diganti dengan contain atau 100% 100% */
+        background-position: center;
+        background-attachment: fixed;
+        background-repeat: no-repeat;
     }
-    .stTextArea textarea {
-        font-size: 16px;
-    }
-    .title {
+    .title, .description {
         text-align: center;
-        font-size: 32px;
         font-weight: bold;
-        color: #ffffff;
-    }
-    .description {
-        text-align: center;
-        font-size: 18px;
-        color: #dddddd;
-    }
-    body {
-        background-color: #1E1E1E;
-        color: white;
+        color: black;
     }
     </style>
-    """, unsafe_allow_html=True)
+    """,
+    unsafe_allow_html=True
+)
 
-st.markdown("<h1 class='title'>🔐 Aplikasi Enkripsi dan Dekripsi</h1>", unsafe_allow_html=True)
-st.markdown("<p class='description'>Gunakan aplikasi ini untuk mengenkripsi dan mendekripsi teks atau file dengan berbagai metode.</p>", unsafe_allow_html=True)
+
+st.markdown(
+    """
+    <h1 class='title' style='color: black;'>🔐 Aplikasi Enkripsi dan Dekripsi</h1>
+    <p class='description' style='color: black;'>
+        Gunakan aplikasi ini untuk mengenkripsi dan mendekripsi teks atau file dengan berbagai metode.
+    </p>
+    """, 
+    unsafe_allow_html=True
+)
+
 
 option = st.radio("Pilih Menu", ["Enkripsi", "Dekripsi"], horizontal=True)
 
