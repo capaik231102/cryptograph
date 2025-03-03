@@ -63,52 +63,49 @@ def aes_decrypt(key, data, mode):
 
 # Streamlit UI
 st.set_page_config(page_title="Aplikasi Enkripsi & Dekripsi", page_icon="🔒", layout="wide")
+
 st.markdown(
     """
     <style>
-    /* Background dengan resolusi tinggi */
     html, body, [class*="stApp"] {
         background-image: url('https://plus.unsplash.com/premium_photo-1661964184053-91aa3dc5f508?q=100&w=3840&auto=format&fit=crop');
-        background-size: cover;  /* Bisa diganti dengan contain atau 100% 100% */
+        background-size: cover;
         background-position: center;
         background-attachment: fixed;
         background-repeat: no-repeat;
     }
-    .title, .description {
-        text-align: center;
-        font-weight: bold;
+    .title, .description, label {
+        font-weight: bold !important;
         color: black;
+    }
+    label {
+        font-size: 12px !important;
     }
     </style>
     """,
     unsafe_allow_html=True
 )
 
-
-st.markdown(
-    """
-    <h1 class='title' style='color: black;'>🔐 Aplikasi Enkripsi dan Dekripsi</h1>
-    <p class='description' style='color: black;'>
+st.markdown("""
+    <h1 class='title' style='text-align:center;'>🔐 Aplikasi Enkripsi dan Dekripsi</h1>
+    <p class='description' style='text-align:center;'>
         Gunakan aplikasi ini untuk mengenkripsi dan mendekripsi teks atau file dengan berbagai metode.
     </p>
-    """, 
-    unsafe_allow_html=True
-)
+""", unsafe_allow_html=True)
 
-
-option = st.radio("Pilih Menu", ["Enkripsi", "Dekripsi"], horizontal=True)
+option = st.radio("**Pilih Menu**", ["Enkripsi", "Dekripsi"], horizontal=True)
 
 if option == "Enkripsi":
-    method = st.selectbox("Pilih Metode", ["Simple XOR", "RC4", "DES", "AES"])
-    key = st.text_input("🔑 Masukkan Kunci", type="password")
-    message = st.text_area("📝 Masukkan Pesan (Opsional)")
-    uploaded_file = st.file_uploader("📂 Upload File untuk Enkripsi")
+    method = st.selectbox("**Pilih Metode**", ["Simple XOR", "RC4", "DES", "AES"])
+    key = st.text_input("🔑 **Masukkan Kunci**", type="password")
+    message = st.text_area("📝 **Masukkan Pesan (Opsional)**")
+    uploaded_file = st.file_uploader("📂 **Upload File untuk Enkripsi**")
     
     mode = None
     if method in ["DES", "AES"]:
-        mode = st.selectbox("⚙️ Pilih Mode", ["ECB", "CBC"])
+        mode = st.selectbox("⚙️ **Pilih Mode**", ["ECB", "CBC"])
     
-    if st.button("🔒 Enkripsi"):
+    if st.button("🔒 **Enkripsi**"):
         if not key:
             st.error("❌ Harap masukkan kunci!")
         else:
@@ -133,22 +130,22 @@ if option == "Enkripsi":
             
             st.success("✅ Data Berhasil Dienkripsi!")
             if filename:
-                st.download_button("📥 Unduh File Terenkripsi", encrypted, file_name=f"{filename}.enc")
+                st.download_button("📥 **Unduh File Terenkripsi**", encrypted, file_name=f"{filename}.enc")
             else:
                 encrypted_b64 = base64.b64encode(encrypted).decode()
-                st.text_area("🔐 Hasil Enkripsi", encrypted_b64, height=100)
+                st.text_area("🔐 **Hasil Enkripsi**", encrypted_b64, height=100)
 
 elif option == "Dekripsi":
-    method = st.selectbox("Pilih Metode", ["Simple XOR", "RC4", "DES", "AES"])
-    key = st.text_input("🔑 Masukkan Kunci", type="password")
-    encrypted_message = st.text_area("🔏 Masukkan Ciphertext (Base64)")
-    uploaded_file = st.file_uploader("📂 Upload File untuk Dekripsi")
+    method = st.selectbox("**Pilih Metode**", ["Simple XOR", "RC4", "DES", "AES"])
+    key = st.text_input("🔑 **Masukkan Kunci**", type="password")
+    encrypted_message = st.text_area("🔏 **Masukkan Ciphertext (Base64)**")
+    uploaded_file = st.file_uploader("📂 **Upload File untuk Dekripsi**")
     
     mode = None
     if method in ["DES", "AES"]:
-        mode = st.selectbox("⚙️ Pilih Mode", ["ECB", "CBC"])
+        mode = st.selectbox("⚙️ **Pilih Mode**", ["ECB", "CBC"])
     
-    if st.button("🔓 Dekripsi"):
+    if st.button("🔓 **Dekripsi**"):
         if not key:
             st.error("❌ Harap masukkan kunci!")
         else:
@@ -172,7 +169,4 @@ elif option == "Dekripsi":
                 decrypted = aes_decrypt(key, encrypted_data, mode)
             
             st.success("✅ Data Berhasil Didekripsi!")
-            if filename:
-                st.download_button("📥 Unduh File Terdekripsi", decrypted, file_name=filename)
-            else:
-                st.text_area("🔓 Hasil Dekripsi", decrypted.decode(errors='ignore'), height=100)
+            st.text_area("🔓 **Hasil Dekripsi**", decrypted.decode(errors='ignore'), height=100)
